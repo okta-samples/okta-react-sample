@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Okta, Inc. and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021-Present, Okta, Inc. and/or its affiliates. All rights reserved.
  * The Okta software accompanied by this notice is provided pursuant to the Apache License, Version 2.0 (the "License.")
  *
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
@@ -58,7 +58,7 @@ const Messages = () => {
           console.error(err);
         });
     }
-  }, [authState]);
+  }, [authState, oktaAuth]);
 
   const possibleErrors = [
     'You\'ve downloaded one of our resource server examples, and it\'s running on port 8000.',
