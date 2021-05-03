@@ -44,7 +44,7 @@ const Navbar = () => {
           {authState.isAuthenticated && (
             <Menu.Item id="logout-button" onClick={logout}>Logout</Menu.Item>
           )}
-          {!authState && !authState.isAuthenticated && (
+          {!authState.isPending && !authState.isAuthenticated && (
             <Menu.Item onClick={login}>Login</Menu.Item>
           )}
         </Container>
