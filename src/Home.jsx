@@ -48,7 +48,7 @@ const Home = () => {
     },
   ];
 
-  if (!authState) {
+  if (authState.isPending) {
     return (
       <div>Loading...</div>
     );
