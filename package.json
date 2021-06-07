@@ -11,7 +11,7 @@
   "dependencies": {
     "@okta/okta-auth-js": "^4.9.0",
     "@okta/okta-react": "^5.1.2",
-    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
     "colors": "^1.4.0",
