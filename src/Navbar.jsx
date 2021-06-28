@@ -21,6 +21,10 @@ const Navbar = () => {
   const login = async () => oktaAuth.signInWithRedirect();
   const logout = async () => oktaAuth.signOut();
 
+  if (!authState) {
+    return null;
+  }
+
   return (
     <div>
       <Menu fixed="top" inverted>
@@ -44,7 +48,7 @@ const Navbar = () => {
           {authState.isAuthenticated && (
             <Menu.Item id="logout-button" onClick={logout}>Logout</Menu.Item>
           )}
-          {!authState.isPending && !authState.isAuthenticated && (
+          {!authState && !authState.isAuthenticated && (
             <Menu.Item onClick={login}>Login</Menu.Item>
           )}
         </Container>

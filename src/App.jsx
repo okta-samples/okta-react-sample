@@ -26,7 +26,7 @@ const oktaAuth = new OktaAuth(config.oidc);
 const App = () => {
   const history = useHistory();
   const restoreOriginalUri = async (oktaAuth, originalUri) => {
-    history.replace(toRelativeUrl(originalUri, window.location.origin));
+    history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
   };
 
   return (
