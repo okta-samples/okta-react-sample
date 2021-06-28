@@ -21,6 +21,10 @@ const Navbar = () => {
   const login = async () => oktaAuth.signInWithRedirect();
   const logout = async () => oktaAuth.signOut();
 
+  if (!authState) {
+    return null;
+  }
+  
   return (
     <div>
       <Menu fixed="top" inverted>
@@ -30,21 +34,21 @@ const Navbar = () => {
             &nbsp;
             <Link to="/">Okta-React Sample Project</Link>
           </Menu.Item>
-          {authState.isAuthenticated && (
+          {authState?.isAuthenticated && (
           <Menu.Item id="messages-button">
             <Icon name="mail outline" />
             <Link to="/messages">Messages</Link>
           </Menu.Item>
           )}
-          {authState.isAuthenticated && (
+          {authState?.isAuthenticated && (
             <Menu.Item id="profile-button">
               <Link to="/profile">Profile</Link>
             </Menu.Item>
           )}
-          {authState.isAuthenticated && (
+          {authState?.isAuthenticated && (
             <Menu.Item id="logout-button" onClick={logout}>Logout</Menu.Item>
           )}
-          {!authState.isPending && !authState.isAuthenticated && (
+          {!authState && !authState?.isAuthenticated && (
             <Menu.Item onClick={login}>Login</Menu.Item>
           )}
         </Container>
