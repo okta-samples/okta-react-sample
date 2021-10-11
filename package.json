@@ -13,7 +13,7 @@
     "@okta/okta-react": "^6.2.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.2.1",
+    "@testing-library/user-event": "^13.3.0",
     "colors": "^1.4.0",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
