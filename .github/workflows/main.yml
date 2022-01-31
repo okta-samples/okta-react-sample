@@ -19,5 +19,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build
+    - name: Install dependencies
+      run: npm ci
+    - name: Create .env file
+      uses: SpicyPizza/create-envfile@v1.2
+      with:
+        envkey_ISSUER: ${{ secrets.ISSUER }}
+        envkey_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        file_name: .okta.env
+    - name: Build and test
+      run: |
+        npm run build
+        npm test
