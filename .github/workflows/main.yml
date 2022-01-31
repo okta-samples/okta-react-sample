@@ -27,6 +27,8 @@ jobs:
         envkey_ISSUER: ${{ secrets.ISSUER }}
         envkey_CLIENT_ID: ${{ secrets.CLIENT_ID }}
         file_name: .okta.env
+    - name: Cat file
+      run: cat .okta.env
     - name: Build and test
       run: |
         npm run build
