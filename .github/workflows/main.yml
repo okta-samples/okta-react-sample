@@ -24,8 +24,8 @@ jobs:
     - name: Create .env file
       uses: SpicyPizza/create-envfile@v1.2
       with:
-        envkey_ISSUER: ${{ secrets.ISSUER }}
-        envkey_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        envkey_ISSUER: https://dev-2530788.okta.com/oauth2/default
+        envkey_CLIENT_ID: 0oa3rms874AuUeKIX5d7
         file_name: .okta.env
     - name: Cat file
       run: cat .okta.env
