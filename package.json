@@ -9,7 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@okta/okta-auth-js": "^5.11.0",
+    "@okta/okta-auth-js": "^6.0.0",
     "@okta/okta-react": "^6.4.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
