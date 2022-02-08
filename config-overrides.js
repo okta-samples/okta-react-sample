@@ -1,7 +1,7 @@
 /* global __dirname */
 /* eslint-disable import/no-extraneous-dependencies */
 
-// Support storing environment variables in a file named "testenv"
+// Support storing environment variables in a file named ".okta.env"
 const path = require('path');
 const dotenv = require('dotenv');
 const fs = require('fs');
