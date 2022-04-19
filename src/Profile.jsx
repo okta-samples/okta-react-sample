@@ -23,9 +23,11 @@ const Profile = () => {
       // When user isn't authenticated, forget any user info
       setUserInfo(null);
     } else {
-      oktaAuth.getUser().then((info) => {
+      setUserInfo(authState.idToken.claims);
+      // get user information from `/userinfo` endpoint
+      /*oktaAuth.getUser().then((info) => {
         setUserInfo(info);
-      });
+      });*/
     }
   }, [authState, oktaAuth]); // Update if authState changes
 
