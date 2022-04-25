@@ -29,5 +29,5 @@ jobs:
         file_name: .okta.env
     - name: Build and test
       run: |
-        npm run build
+        NODE_OPTIONS=--openssl-legacy-provider npm run build
         npm test
