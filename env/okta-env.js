@@ -15,7 +15,7 @@ function setEnvironmentVars(envConfig) {
 
 function getPath(currDir = __dirname) {
   let res, prevDir;
-  // stop when find testenv file or reach to root dir
+  // stop when find .okta.env file or reach to root dir
   while (!fs.existsSync(res) && currDir !== prevDir)  {
     prevDir = currDir;
     res = path.resolve(currDir, OKTAENV_FILE);
@@ -25,11 +25,11 @@ function getPath(currDir = __dirname) {
 }
 
 function setEnvironmentVarsFromTestEnv(currDir) {
-  const testEnvPath = getPath(currDir);
-  if (!testEnvPath) {
+  const oktaEnvPath = getPath(currDir);
+  if (!oktaEnvPath) {
     return;
   }
-  const envConfig = dotenv.parse(fs.readFileSync(testEnvPath));
+  const envConfig = dotenv.parse(fs.readFileSync(oktaEnvPath));
   setEnvironmentVars(envConfig);
 }
 
