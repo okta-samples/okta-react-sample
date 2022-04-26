@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prestart": "vite build",
-    "start": "vite preview --port 3000",
+    "start": "vite",
     "build": "vite build",
-    "test": "vite test"
+    "test": "jest ."
   },
   "dependencies": {
     "@okta/okta-auth-js": "^6.1.0",

@@ -12,10 +12,7 @@ const env = {};
 // List of environment variables made available to the app
 [
   'ISSUER',
-  'CLIENT_ID',
-  'SPA_CLIENT_ID',
-  'OKTA_TESTING_DISABLEHTTPSCHECK',
-  'USE_INTERACTION_CODE',
+  'CLIENT_ID'
 ].forEach((key) => {
   if (!process.env[key]) {
     throw new Error(`Environment variable ${key} must be set. See README.md`);
@@ -36,7 +33,7 @@ export default defineConfig({
     }
   },
   server: {
-    port: process.env.PORT || 8080
+    port: process.env.PORT || 3000
   },
   build: {
     rollupOptions: {
