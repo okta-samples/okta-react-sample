@@ -28,7 +28,7 @@
     "dotenv": "^16.0.0",
     "jest": "^28.0.1",
     "jest-environment-jsdom": "^28.0.1",
-    "vite": "^2.9.5"
+    "vite": "^2.9.7"
   },
   "browserslist": {
     "production": [
