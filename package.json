@@ -8,7 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@okta/okta-auth-js": "6.6.0",
+    "@okta/okta-auth-js": "6.6.1",
     "@okta/okta-react": "^6.4.3",
     "colors": "1.4.0",
     "react": "^17.0.2",
@@ -46,6 +46,9 @@
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
       "^@okta/okta-auth-js$": "<rootDir>/node_modules/@okta/okta-auth-js/dist/okta-auth-js.umd.js"
-    }
+    },
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
   }
 }
