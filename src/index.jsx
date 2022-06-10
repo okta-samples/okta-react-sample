@@ -22,9 +22,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<React.StrictMode>
+root.render(
   <BrowserRouter>
     <App/>
-  </BrowserRouter>
-</React.StrictMode>);
+  </BrowserRouter>);
 registerServiceWorker();
