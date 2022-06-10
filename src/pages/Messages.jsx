@@ -14,7 +14,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import React, { useState, useEffect } from 'react';
 import { Header, Icon, Message, Table } from 'semantic-ui-react';
 
-import config from './config';
+import config from '../config';
 
 const Messages = () => {
   const { authState, oktaAuth } = useOktaAuth();
