@@ -11,19 +11,21 @@
  */
 
 import React from 'react';
+import { useOktaAuth } from '@okta/okta-react';
+import { toRelativeUrl } from '@okta/okta-auth-js';
+import { Outlet } from 'react-router-dom';
+import Loading from './Loading';
 
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import 'semantic-ui-css/semantic.min.css';
-import './polyfills';
-import App from './App';
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+export const RequiredAuth = () => {
+  const { oktaAuth, authState } = useOktaAuth();
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(
-  <BrowserRouter>
-    <App/>
-  </BrowserRouter>);
-registerServiceWorker();
+  if (!authState || !authState?.isAuthenticated) {
+    const originalUri = toRelativeUrl(window.location.href, window.location.origin);
+    oktaAuth.setOriginalUri(originalUri);
+    oktaAuth.signInWithRedirect();
+
+    return (<Loading />);
+  }
+
+  return (<Outlet />);
+}
