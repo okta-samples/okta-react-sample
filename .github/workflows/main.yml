@@ -26,8 +26,6 @@ jobs:
         touch .okta.env
         echo ISSUER=${{ secrets.ISSUER }} >> .okta.env
         echo CLIENT_ID=${{ secrets.CLIENT_ID }} >> .okta.env
-        echo "cat .okta.env"
-        cat .okta.env
     - name: Build and test
       run: |
         npm run build
