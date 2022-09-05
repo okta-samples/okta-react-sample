@@ -23,12 +23,13 @@ jobs:
       run: npm ci
     - name: Create .env file
       run: |
-        pwd
         touch .okta.env
-        echo ISSUER=${{ secrets.ISSUER }} >> .okta.env
+        echo ISSUER=${{ secrets.ISSUER }} > .okta.env
         echo CLIENT_ID=${{ secrets.CLIENT_ID }} >> .okta.env
+        cat .okta.env
     - name: Build and test
       run: |
-        pwd
+        ls
+        cat .okta.env
         npm run build
         npm test
