@@ -22,11 +22,10 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Create .env file
-      uses: SpicyPizza/create-envfile@v1.3.1
-      with:
-        envkey_ISSUER: ${{ secrets.ISSUER }}
-        envkey_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        file_name: .okta.env
+      run: |
+        touch .okta.env
+        echo ISSUER=${{ secrets.ISSUER }} >> .okta.env
+        echo CLIENT_ID=${{ secrets.CLIENT_ID }} >> .okta.env
     - name: Build and test
       run: |
         npm run build
