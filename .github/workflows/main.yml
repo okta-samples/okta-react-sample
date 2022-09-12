@@ -29,7 +29,5 @@ jobs:
         cat .okta.env
     - name: Build and test
       run: |
-        ls
-        cat .okta.env
         npm run build
         npm test
