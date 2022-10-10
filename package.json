@@ -8,7 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@okta/okta-auth-js": "6.8.0",
+    "@okta/okta-auth-js": "7.0.1",
     "@okta/okta-react": "^6.6.0",
     "colors": "1.4.0",
     "react": "^18.2.0",
