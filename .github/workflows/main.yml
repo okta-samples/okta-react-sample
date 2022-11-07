@@ -24,8 +24,8 @@ jobs:
     - name: Create .env file
       run: |
         touch .okta.env
-        echo ISSUER=${{ secrets.ISSUER }} > .okta.env
-        echo CLIENT_ID=${{ secrets.CLIENT_ID }} >> .okta.env
+        echo ISSUER=https://dev-17700857.okta.com/oauth2/default > .okta.env
+        echo CLIENT_ID=0oa73s4gvu9vD6vxv5d7 >> .okta.env
         cat .okta.env
     - name: Build and test
       run: |
