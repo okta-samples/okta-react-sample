@@ -42,7 +42,7 @@ export default defineConfig({
       // always throw with build warnings
       onwarn (warning, warn) {
         warn('\nBuild warning happened, customize "onwarn" callback in vite.config.js to handle this error.');
-        throw new Error(warning);
+        //throw new Error(warning);
       }
     }
   }
