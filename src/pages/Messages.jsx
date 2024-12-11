@@ -23,41 +23,36 @@ const Messages = () => {
 
   // fetch messages
   useEffect(() => {
-    if (authState && authState.isAuthenticated) {
-      const accessToken = oktaAuth.getAccessToken();
-      fetch(config.resourceServer.messagesUrl, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject();
-          }
-          return response.json();
-        })
-        .then((data) => {
-          let index = 0;
-          const formattedMessages = data.messages.map((message) => {
+    const fetchMessages = async () => {
+      if (authState && authState.isAuthenticated) {
+        try {
+          const accessToken = oktaAuth.getAccessToken();
+          const response = await fetch(config.resourceServer.messagesUrl, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+    
+          const data = await response.json();
+          const formattedMessages = data.messages.map((message, index) => {
             const date = new Date(message.date);
-            const day = date.toLocaleDateString();
-            const time = date.toLocaleTimeString();
-            index += 1;
             return {
-              date: `${day} ${time}`,
+              date: `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`,
               text: message.text,
               id: `message-${index}`,
             };
           });
+          
           setMessages(formattedMessages);
           setMessageFetchFailed(false);
-        })
-        .catch((err) => {
+        } catch (err) {
           setMessageFetchFailed(true);
           /* eslint-disable no-console */
           console.error(err);
-        });
+        }
+      }
     }
+    fetchMessages();
   }, [authState, oktaAuth]);
 
   const possibleErrors = [
