@@ -24,6 +24,10 @@ export default defineConfig(({ _, mode }) => {
     define: {
       'ISSUER': JSON.stringify(env.ISSUER),
       'CLIENT_ID': JSON.stringify(env.CLIENT_ID)
+    },
+    test: {
+      environment: 'jsdom',
+      globals: true
     }  
   }
 
