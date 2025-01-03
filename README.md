@@ -30,7 +30,7 @@ Follow the instructions printed to the console.
 To run this application, install its dependencies:
 
 ```
-npm install
+npm ci
 ```
 
 With variables set, start your app:
