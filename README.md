@@ -9,15 +9,21 @@ Before running this sample, you will need the following:
 * [The Okta CLI Tool](https://github.com/okta/okta-cli#installation)
 * An Okta Developer Account (create one using `okta register`, or configure an existing one with `okta login`)
 
+## Configure Okta resources
+
+**Enable Refresh Tokens**
+
+Sign into your [Okta Developer Edition account](https://developer.okta.com/login/) to add a required setting to your React Okta app to avoid third-party cookies. Navigate to **Applications** > **Applications** and select "okta-react-sample" application to edit. Find the **General Settings** and press **Edit**. Enable **Refresh Token** in the **Grant type** section. **Save** your changes.
+
+**Verify Authorization Server**
+
+This repo calls a custom resource server to demonstrate making a protected resource request using an access token. Ensure that your default custom authorization server has an access policy. Add an access policy if it's not there. See [Create access polices](https://help.okta.com/okta_help.htm?type=oie&id=ext-create-access-policies).
+
 ## Get the Code
 
 Grab and configure this project using `okta start react`.
 
 Follow the instructions printed to the console.
-
-## Enable Refresh Token
-
-Sign into your [Okta Developer Edition account](https://developer.okta.com/login/) to add a required setting to your React Okta app to avoid third-party cookies. Navigate to **Applications** > **Applications** and select "okta-react-sample" application to edit. Find the **General Settings** and press **Edit**. Enable **Refresh Token** in the **Grant type** section. **Save** your changes.
 
 ## Run the Example
 
