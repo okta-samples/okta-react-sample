@@ -10,7 +10,7 @@
   "dependencies": {
     "@okta/okta-auth-js": "7.10.0",
     "@okta/okta-react": "^6.9.0",
-    "react": "^18.3.1",
+    "react": "^19.0.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1",
     "semantic-ui-css": "^2.5.0",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^16.2.0",
-    "@types/react": "^18.3.3",
+    "@types/react": "^19.0.7",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.3",
     "dotenv": "^16.4.5",
