@@ -24,7 +24,7 @@
     "dotenv": "^16.4.5",
     "jsdom": "^25.0.1",
     "vite": "^5.4.11",
-    "vitest": "^2.1.8"
+    "vitest": "^3.0.2"
   },
   "browserslist": {
     "production": [
