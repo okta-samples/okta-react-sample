@@ -12,8 +12,5 @@ export default {
     scopes: ['openid', 'profile', 'email', 'offline_access'],
     pkce: true,
     disableHttpsCheck: OKTA_TESTING_DISABLEHTTPSCHECK,
-  },
-  resourceServer: {
-    messagesUrl: 'http://localhost:8000/api/messages',
-  },
+  }
 };

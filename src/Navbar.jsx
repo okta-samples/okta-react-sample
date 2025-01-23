@@ -11,45 +11,40 @@
  */
 
 import { useOktaAuth } from '@okta/okta-react';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Icon, Image, Menu } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Container, Menu } from 'semantic-ui-react';
 
 const Navbar = () => {
   const { authState, oktaAuth } = useOktaAuth();
+  const [userInfo, setUserInfo] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!authState || !authState.isAuthenticated) {
+      setUserInfo(null);
+    } else {
+      oktaAuth.getUser().then((info) => {
+        setUserInfo(info);
+      });
+    }
+  }, [authState, oktaAuth, location]);
 
   const login = async () => oktaAuth.signInWithRedirect();
   const logout = async () => oktaAuth.signOut();
-
-  if (!authState) {
-    return null;
-  }
 
   return (
     <div>
       <Menu fixed="top" inverted>
         <Container>
-          <Menu.Item header>
-            <Image size="mini" src="/react.svg" />
-            &nbsp;
-            <Link to="/">Okta-React Sample Project</Link>
-          </Menu.Item>
-          {authState.isAuthenticated && (
-          <Menu.Item id="messages-button">
-            <Icon name="mail outline" />
-            <Link to="/messages">Messages</Link>
-          </Menu.Item>
-          )}
-          {authState.isAuthenticated && (
-            <Menu.Item id="profile-button">
-              <Link to="/profile">Profile</Link>
+          {process.env.SUPPORT_URL !== "" && (
+            <Menu.Item id="help-button">
+              <Link to={process.env.SUPPORT_URL}>Help</Link>
             </Menu.Item>
           )}
-          {authState.isAuthenticated && (
-            <Menu.Item id="logout-button" onClick={logout}>Logout</Menu.Item>
-          )}
-          {!authState && !authState.isAuthenticated && (
-            <Menu.Item onClick={login}>Login</Menu.Item>
+          {authState && authState?.isAuthenticated && !userInfo?.eduPersonPrincipalName && (
+            <Menu.Item id="cancel-button" onClick={logout}>
+              Cancel </Menu.Item>
           )}
         </Container>
       </Menu>

@@ -10,31 +10,101 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-.App {
+.App-main-container {
+  margin-top: 7em;
+}
+
+.center-container {
+  --height: 50vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: var(--height);
+  padding: 2em;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.title {
+  font-size: 2.5rem;
   text-align: center;
+  margin-bottom: 2rem;
+  font-weight: lighter;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
+/* ---border-color is parameterized and defaults to #00BFFF */
+.container-with-border {
+  ---border-color: #AC0033;
 
-.App-header {
-  background-color: #222;
-  height: 150px;
+  border: 2px solid var(---border-color);
+  border-radius: 1.5em;
   padding: 20px;
-  color: white;
+  margin: 20px;
+  text-align: center;
+  max-width: 25vw;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+/* remove hyphenation for FASRC */
+/*  hyphens: none; */
+  hyphens: manual;
+  min-width: -webkit-fill-available;
 }
 
-.App-title {
-  font-size: 1.5em;
+/* Can be called within your jsx like className="container-with-border crimson" */
+.container-with-border.crimson {
+  ---border-color: #DC143C;
 }
 
-.App-intro {
-  font-size: large;
+/* Can be called within your jsx like className="container-with-border error" */
+.container-with-border.error {
+  ---border-color: #DC143C;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+// Override default button color for FASRC (not working)
+#login-button .ui.primary.button {
+  background-color: #AC0033;
+}
+
+.report-error-button {
+  color: #DC143C;
+}
+
+.loader {
+  border: 5px solid #F3F3F3;
+  border-top: 5px solid #3498DB;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -14,7 +14,9 @@ import React from 'react';
 
 const Loading = () => {
   return (
-    <h3 id='loading-icon'>Loading...</h3>
+    <div className="loader-container">
+      <div className="loader"></div>
+    </div>
   );
 };
 

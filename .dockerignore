@@ -1,0 +1,26 @@
+# Dependencies
+node_modules
+npm-debug.log
+
+# Environment and Secrets
+.env
+.env.*
+*.pem
+
+# Development
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose*.yml
+
+# Logs
+logs
+*.log
+
+# IDE specific files
+.vscode
+.idea
+
+# OS Generated files
+.DS_Store

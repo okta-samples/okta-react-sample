@@ -15,7 +15,14 @@ const env = {};
 // List of environment variables made available to the app
 [
   'ISSUER',
-  'CLIENT_ID'
+  'CLIENT_ID',
+  'EXT_AUTH_URL',
+  'EXT_CLIENT_ID',
+  'EXT_REDIRECT_URI',
+  'LINK_API',
+  'SUPPORT_EMAIL',
+  'SUPPORT_URL',
+  'LOGO_URL',
 ].forEach((key) => {
   if (!process.env[key]) {
     throw new Error(`Environment variable ${key} must be set. See README.md`);

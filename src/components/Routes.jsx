@@ -16,19 +16,15 @@ import { LoginCallback } from '@okta/okta-react';
 import { RequiredAuth } from './SecureRoute';
 import Home from '../pages/Home';
 import Loading from './Loading';
-import Messages from '../pages/Messages';
-import Profile from '../pages/Profile';
+import ExtAuthCallback from '../pages/ExtAuthCallback';
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" exact={true} element={<Home/>}/>
       <Route path="login/callback" element={<LoginCallback loadingElement={<Loading/>}/>}/>
-      <Route path="/messages" element={<RequiredAuth/>}>
-        <Route path="" element={<Messages/>}/>
-      </Route>
-      <Route path="/profile" element={<RequiredAuth/>}>
-        <Route path="" element={<Profile/>}/>
+      <Route path="/authorize/callback" element={<RequiredAuth/>}>
+        <Route path="" element={<ExtAuthCallback/>}/>
       </Route>
     </Routes>
   );

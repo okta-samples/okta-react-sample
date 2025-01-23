@@ -12,11 +12,16 @@
 
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useState, useEffect } from 'react';
-import { Button, Header } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+import Loading from '../components/Loading';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const { authState, oktaAuth } = useOktaAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!authState || !authState.isAuthenticated) {
@@ -27,94 +32,126 @@ const Home = () => {
         setUserInfo(info);
       });
     }
-  }, [authState, oktaAuth]); // Update if authState changes
+
+    if (location.state?.error) {
+      setError(location.state.error);
+    }
+
+    // Clearing the location state
+    navigate(location.pathname, { replace: true });
+  }, [authState, oktaAuth]);
 
   const login = async () => {
     await oktaAuth.signInWithRedirect();
   };
 
-  const resourceServerExamples = [
-    {
-      label: 'Node/Express Resource Server Example',
-      url: 'https://github.com/okta/samples-nodejs-express-4/tree/master/resource-server',
-    },
-    {
-      label: 'Java/Spring MVC Resource Server Example',
-      url: 'https://github.com/okta/samples-java-spring/tree/master/resource-server',
-    },
-    {
-      label: 'ASP.NET Core Resource Server Example',
-      url: 'https://github.com/okta/samples-aspnetcore/tree/master/samples-aspnetcore-3x/resource-server',
-    },
-  ];
+  const handleFASRCSupport = () => {
+    return `mailto:${process.env.SUPPORT_EMAIL}?subject=FASRC%20HarvardKey%20Linker`;
+  }
+
+  const getErrorMailToLink = (error) => {
+    const subject = encodeURIComponent("Error Report");
+    const body = encodeURIComponent(`
+      FASRC HarvardKey Linker Error Details:
+      Time: ${new Date().toISOString()}
+
+      User: ${userInfo.email}
+
+      Error Message: ${error}
+      `);
+
+    return `mailto:${process.env.SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
+  };
+
+  // External IDP Login 
+  const extLogin = async () => {
+    // Create the Authorization URL
+    const authorizationUrl = new URL(process.env.EXT_AUTH_URL);
+    authorizationUrl.searchParams.append("client_id", process.env.EXT_CLIENT_ID);
+    authorizationUrl.searchParams.append("response_type", "code");
+    authorizationUrl.searchParams.append("scope", "openid profile email");
+    authorizationUrl.searchParams.append("redirect_uri", process.env.EXT_REDIRECT_URI);
+    authorizationUrl.searchParams.append("state", crypto.randomUUID());
+
+    // ext_oidc_state variable is set for security purposes and will be confirmed when we get a response back (in ExtAuthCallback.jsx)
+    sessionStorage.setItem("ext_oidc_state", authorizationUrl.searchParams.get("state"));
+
+    window.location.href = authorizationUrl.toString();
+  }
 
   if (!authState) {
-    return (
-      <div>Loading...</div>
-    );
+    return <Loading />;
   }
 
   return (
-    <div>
+    <div className="center-container">
       <div>
-        <Header as="h1">PKCE Flow w/ Okta Hosted Login Page</Header>
+        <img src={process.env.LOGO_URL}/>
+      </div>
+      <div>
+        <h1 className="title">FASRC HarvardKey Linker</h1>
+      </div>
+      <div>
+        <div className="content">
+          {authState.isAuthenticated && !userInfo
+            && <Loading />}
 
-        { authState.isAuthenticated && !userInfo
-        && <div>Loading user information...</div>}
+          {error && userInfo
+            && (
+              <div className="content">
+                <div className="container-with-border error">
+                  <p>An Unexprected Error Occurred</p>
+                </div>
+                <div>
+                  <Button id="report_error-button" color="red" as="a" href={getErrorMailToLink(error)}>
+                    Report this error
+                  </Button>
+                </div>
+              </div>
+            )}
 
-        {authState.isAuthenticated && userInfo
-        && (
-        <div>
-          <p>
-            Welcome back,&nbsp;
-            {userInfo.name}
-            !
-          </p>
-          <p>
-            You have successfully authenticated against your Okta org, and have been redirected back to this application.  You now have an ID token and access token in local storage.
-            Visit the
-            {' '}
-            <a href="/profile">My Profile</a>
-            {' '}
-            page to take a look inside the ID token.
-          </p>
-          <h3>Next Steps</h3>
-          <p>Currently this application is a stand-alone front end application.  At this point you can use the access token to authenticate yourself against resource servers that you control.</p>
-          <p>This sample is designed to work with one of our resource server examples.  To see access token authentication in action, please download one of these resource server examples:</p>
-          <ul>
-            {resourceServerExamples.map((example) => <li key={example.url}><a href={example.url}>{example.label}</a></li>)}
-          </ul>
-          <p>
-            Once you have downloaded and started the example resource server, you can visit the
-            {' '}
-            <a href="/messages">My Messages</a>
-            {' '}
-            page to see the authentication process in action.
-          </p>
+          {authState.isAuthenticated && userInfo && userInfo.eduPersonPrincipalName && !error
+            && (
+              <div className="content">
+                <div className="container-with-border">
+                  <p>Your FASRC identity "{userInfo?.sam_account_name ? userInfo.sam_account_name : '(no account name)'}" is now linked to your HarvardKey identity "{userInfo?.eduPersonPrincipalName ? userInfo.eduPersonPrincipalName : '(no identity)'}". ✅</p>
+                  <p>If this is not what you expect, please <a href={handleFASRCSupport()}>contact FASRC Support</a>.</p>
+                  <p>If you were trying to log in to an FASRC service, please return to that service to log in again.</p>
+                </div>
+              </div>
+            )}
+
+          {authState.isAuthenticated && userInfo && !userInfo.eduPersonPrincipalName && !error
+            && (
+              <div className="content">
+                <div className="container-with-border">
+                  <p>You are now logged in to your FASRC "{userInfo?.sam_account_name ? userInfo.sam_account_name : 'no account name present'}" account.</p>
+                  <p>Click the button below to authenticate to HarvardKey and link your HarvardKey to your FASRC account.</p>
+                  <p>After your accounts are linked, you will be able to use your HarvardKey to sign in to some FASRC services instead of using your FASRC account.</p>
+                </div>
+                <div>
+                  <Button id="login-button" primary onClick={extLogin}>Step 2: Sign in with HarvardKey</Button>
+                </div>
+              </div>
+            )}
+
+          {!authState.isAuthenticated
+            && (
+              <div className="content">
+                <div className="container-with-border">
+                  <p>This app will link your HarvardKey to your FAS Research Computing account.</p>
+                  <p>You will be required to sign in to both accounts to confirm your identity.</p>
+                  <p>After your accounts are linked, you will be able to use your HarvardKey to sign in to some FASRC services instead of using your FASRC account.</p>
+                </div>
+                <div>
+                  <Button id="login-button" primary onClick={login}>Step 1: Sign in with FASRC</Button>
+                </div>
+              </div>
+            )}
         </div>
-        )}
-
-        {!authState.isAuthenticated
-        && (
-        <div>
-          <p>If you&lsquo;re viewing this page then you have successfully started this React application.</p>
-          <p>
-            <span>This example shows you how to use the </span>
-            <a href="https://github.com/okta/okta-oidc-js/tree/master/packages/okta-react">Okta React Library</a>
-            <span> to add the </span>
-            <a href="https://developer.okta.com/docs/guides/implement-auth-code-pkce">PKCE Flow</a>
-            <span> to your application.</span>
-          </p>
-          <p>
-            When you click the login button below, you will be redirected to the login page on your Okta org.
-            After you authenticate, you will be returned to this application with an ID token and access token.  These tokens will be stored in local storage and can be retrieved at a later time.
-          </p>
-          <Button id="login-button" primary onClick={login}>Login</Button>
-        </div>
-        )}
-
       </div>
     </div>
   );
 };
+
 export default Home;
