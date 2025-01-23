@@ -1,3 +1,14 @@
+# FASRC HarvardKey Linker (Frontend)
+
+Notes:
+* This repo is forked from upstream so the upstream `README.md` is presented below intact to make incorporating future changes easier.
+* This repo is **PUBLIC** and must remain so in order to track and merge changes from the public upstream repo through the GitHub UI. **DO NOT COMMIT SECRETS HERE!**
+
+Amendments:
+* To start the app use `npm install` instead of `npm ci`
+
+Original `README.md` follows...
+
 # Okta React + Okta Hosted Login Example
 
 This example shows how to use the [Okta React Library][] and [React Router](https://github.com/ReactTraining/react-router) to login a user to a React application.  The login is achieved through the [PKCE Flow][], where the user is redirected to the Okta-Hosted login page.  After the user authenticates they are redirected back to the application with an ID token and access token.
@@ -30,7 +41,7 @@ Follow the instructions printed to the console.
 To run this application, install its dependencies:
 
 ```
-npm install
+npm ci 
 ```
 
 With variables set, start your app:
