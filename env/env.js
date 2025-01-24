@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
 
-const OKTAENV_FILE = '.okta.env';
+const ENV_FILE = '.production.env';
 
 function setEnvironmentVars(envConfig) {
   Object.keys(envConfig).forEach((k) => {
@@ -14,25 +14,22 @@ function setEnvironmentVars(envConfig) {
 }
 
 function getPath(currDir = __dirname) {
-  let res, prevDir;
-  // stop when find .okta.env file or reach to root dir
-  while (!fs.existsSync(res) && currDir !== prevDir)  {
-    prevDir = currDir;
-    res = path.resolve(currDir, OKTAENV_FILE);
-    currDir = path.resolve(currDir, '.');
-  }
+  let res;
+  res = path.resolve(currDir, ENV_FILE);
+  console.log(`Looking for env file "${res}".`);
   return fs.existsSync(res) ? res : null;
 }
 
-function setEnvironmentVarsFromTestEnv(currDir) {
-  const oktaEnvPath = getPath(currDir);
-  if (!oktaEnvPath) {
+function setEnvironmentVarsFromDir(currDir) {
+  const envPath = getPath(currDir);
+  if (!envPath) {
+      console.log(`No env file found.`);
     return;
   }
-  const envConfig = dotenv.parse(fs.readFileSync(oktaEnvPath));
+  const envConfig = dotenv.parse(fs.readFileSync(envPath));
   setEnvironmentVars(envConfig);
 }
 
 module.exports = {
-  setEnvironmentVarsFromTestEnv
+  setEnvironmentVarsFromDir
 };

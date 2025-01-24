@@ -6,7 +6,7 @@ import dns from 'dns'
 
 dns.setDefaultResultOrder('verbatim')
 
-getEnvModule().setEnvironmentVarsFromTestEnv(__dirname);
+getEnvModule().setEnvironmentVarsFromDir(__dirname);
 
 process.env.CLIENT_ID = process.env.SPA_CLIENT_ID || process.env.CLIENT_ID;
 
@@ -22,7 +22,6 @@ const env = {};
   'LINK_API',
   'SUPPORT_EMAIL',
   'SUPPORT_URL',
-  'LOGO_URL',
 ].forEach((key) => {
   if (!process.env[key]) {
     throw new Error(`Environment variable ${key} must be set. See README.md`);

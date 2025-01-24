@@ -5,7 +5,12 @@ Notes:
 * This repo is **PUBLIC** and must remain so in order to track and merge changes from the public upstream repo through the GitHub UI. **DO NOT COMMIT SECRETS HERE!**
 
 Amendments:
+* Configuration:
+  1. Copy `.example.env` to `.development.env` and fill in values.
+  2. Edit `env/env.js` to load `.development.env` instead of production env (FIXME: this should be paramaterized).
+  2. To include the env in the Docker build, edit the `.dockerignore` and uncomment its non-exclusion. ONLY do this in a local dev env where you will NOT push or share the build image!
 * To start the app use `npm install` instead of `npm ci`
+* The test suite is currently untested.
 
 Original `README.md` follows...
 

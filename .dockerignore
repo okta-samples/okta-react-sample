@@ -3,9 +3,10 @@ node_modules
 npm-debug.log
 
 # Environment and Secrets
-.env
+*.env
 .env.*
-*.pem
+#  (uncomment to include in build for local dev env only -- do not distribute!)
+#!.development.env
 
 # Development
 .git

@@ -86,7 +86,7 @@ const Home = () => {
   return (
     <div className="center-container">
       <div>
-        <img src={process.env.LOGO_URL}/>
+        <img src="/logo.jpg"/>
       </div>
       <div>
         <h1 className="title">FASRC HarvardKey Linker</h1>

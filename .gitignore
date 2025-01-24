@@ -11,6 +11,8 @@ samples-java-spring
 .idea/
 yalc.lock
 .eslintcache
+# Do not commit any env files except .okta.env (upstream example) and .example.env (local example)
 *.env
 .env.*
+!.okta.env
 !.example.env
