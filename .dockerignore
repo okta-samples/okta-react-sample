@@ -6,7 +6,7 @@ npm-debug.log
 *.env
 .env.*
 #  (uncomment to include in build for local dev env only -- do not distribute!)
-#!.development.env
+!.development.env
 
 # Development
 .git

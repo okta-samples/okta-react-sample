@@ -5,7 +5,7 @@ FROM node:alpine
 WORKDIR /app
 
 # Install dependencies
-COPY package.*json ./
+COPY package*.json ./
 RUN npm install
 
 # Copy applications from current directory (except items in .dockerignore) to the current WORKDIR (/app)

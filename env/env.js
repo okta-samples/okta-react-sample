@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
 
-const ENV_FILE = '.production.env';
+const ENV_FILE = '.development.env';
 
 function setEnvironmentVars(envConfig) {
   Object.keys(envConfig).forEach((k) => {
