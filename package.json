@@ -23,7 +23,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "dotenv": "^16.4.5",
     "jsdom": "^25.0.1",
-    "vite": "^5.4.11",
+    "vite": "^6.1.0",
     "vitest": "^2.1.8"
   },
   "browserslist": {
